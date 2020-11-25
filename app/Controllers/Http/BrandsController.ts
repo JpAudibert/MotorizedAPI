@@ -10,7 +10,7 @@ export default class BrandsController {
   public async show({ response, params }: HttpContextContract) {
     const { id } = params
 
-    const brand = await Brand.query().where('id', id).firstOrFail()
+    const brand = await Brand.query().where('id', id).first()
 
     if (!brand) {
       return response.status(400).json('There is no brand with this ID')
@@ -32,17 +32,17 @@ export default class BrandsController {
   }
 
   public async update({ request, response, params }: HttpContextContract) {
-    const { id } = request.params()
+    const { id } = params
     const { name, deletedAt } = request.original()
 
     if (!name) {
-      return response.status(400).json('Empty category name')
+      return response.status(400).json('Empty brand name')
     }
 
-    const brand = await Brand.query().where('id', id).firstOrFail()
+    const brand = await Brand.query().where('id', id).first()
 
     if (!brand) {
-      return response.status(400).json('There is no category with this ID')
+      return response.status(400).json('There is no brand with this ID')
     }
 
     brand.name = name
@@ -58,7 +58,7 @@ export default class BrandsController {
   public async delete({ response, params }: HttpContextContract) {
     const { id } = params
 
-    const brand = await Brand.query().where('id', id).firstOrFail()
+    const brand = await Brand.query().where('id', id).first()
 
     if (!brand) {
       return response.status(400).json('There is no brand with this ID')

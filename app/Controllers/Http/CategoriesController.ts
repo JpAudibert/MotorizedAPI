@@ -10,7 +10,7 @@ export default class CategoriesController {
   public async show({ response, params }: HttpContextContract) {
     const { id } = params
 
-    const category = await Category.query().where('id', id).firstOrFail()
+    const category = await Category.query().where('id', id).first()
 
     if (!category) {
       return response.status(400).json('There is no category with this ID')
@@ -31,7 +31,7 @@ export default class CategoriesController {
     return category
   }
 
-  public async update({ request, response, params }: HttpContextContract) {
+  public async update({ request, response }: HttpContextContract) {
     const { id } = request.params()
     const { categoryName, deletedAt } = request.original()
 
@@ -39,7 +39,7 @@ export default class CategoriesController {
       return response.status(400).json('Empty category name')
     }
 
-    const category = await Category.query().where('id', id).firstOrFail()
+    const category = await Category.query().where('id', id).first()
 
     if (!category) {
       return response.status(400).json('There is no category with this ID')
@@ -58,7 +58,7 @@ export default class CategoriesController {
   public async delete({ response, params }: HttpContextContract) {
     const { id } = params
 
-    const category = await Category.query().where('id', id).firstOrFail()
+    const category = await Category.query().where('id', id).first()
 
     if (!category) {
       return response.status(400).json('There is no category with this ID')
