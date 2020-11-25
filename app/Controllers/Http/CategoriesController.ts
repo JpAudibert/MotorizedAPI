@@ -4,7 +4,7 @@ import { DateTime } from 'luxon'
 
 export default class CategoriesController {
   public async index() {
-    return Category.all({})
+    return await Category.all()
   }
 
   public async show({ response, params }: HttpContextContract) {

@@ -3,7 +3,7 @@ import State from 'App/Models/State'
 
 export default class StatesController {
   public async index() {
-    return State.all({})
+    return await State.all()
   }
 
   public async show({ response, params }: HttpContextContract) {

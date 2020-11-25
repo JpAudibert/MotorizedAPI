@@ -19,8 +19,9 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import './category'
 import './brand'
+import './category'
+import './responsibility'
 import './state'
 
 Route.get('/', async () => {

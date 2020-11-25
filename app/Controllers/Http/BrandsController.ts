@@ -4,7 +4,7 @@ import { DateTime } from 'luxon'
 
 export default class BrandsController {
   public async index() {
-    return Brand.all({})
+    return await Brand.all()
   }
 
   public async show({ response, params }: HttpContextContract) {
