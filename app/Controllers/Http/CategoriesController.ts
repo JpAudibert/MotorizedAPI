@@ -1,5 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Category from 'App/Models/Category'
+import { DateTime } from 'luxon'
 
 export default class CategoriesController {
   public async index() {
@@ -32,7 +33,7 @@ export default class CategoriesController {
 
   public async update({ request, response, params }: HttpContextContract) {
     const { id } = request.params()
-    const { categoryName } = request.original()
+    const { categoryName, deletedAt } = request.original()
 
     if (!categoryName) {
       return response.status(400).json('Empty category name')
@@ -45,6 +46,9 @@ export default class CategoriesController {
     }
 
     category.categoryName = categoryName
+    if (deletedAt) {
+      category.deletedAt = new DateTime()
+    }
 
     category.save()
 
