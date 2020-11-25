@@ -13,7 +13,7 @@ export default class StateSeeder extends BaseSeeder {
 
     const { data: states } = await stateProvider.get<RequestState[]>(urlStates)
 
-    const baseStates = await State.createMany(
+    await State.createMany(
       states.map((state) => ({
         name: state.nome,
         abreviation: state.sigla,
