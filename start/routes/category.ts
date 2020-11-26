@@ -6,5 +6,6 @@ Route.get('categories/:id', 'CategoriesController.show')
 Route.post('categories', 'CategoriesController.store')
 
 Route.put('categories/:id', 'CategoriesController.update')
+Route.patch('categories/:id', 'CategoriesController.softDelete')
 
 Route.delete('categories/:id', 'CategoriesController.delete')

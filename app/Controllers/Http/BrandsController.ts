@@ -33,7 +33,7 @@ export default class BrandsController {
 
   public async update({ request, response, params }: HttpContextContract) {
     const { id } = params
-    const { name, deletedAt } = request.original()
+    const { name } = request.original()
 
     if (!name) {
       return response.status(400).json('Empty brand name')
@@ -45,14 +45,25 @@ export default class BrandsController {
       return response.status(400).json('There is no brand with this ID')
     }
 
-    brand.name = name
-    if (deletedAt) {
-      brand.deletedAt = new DateTime()
-    }
-
     brand.save()
 
     return brand
+  }
+
+  public async softDelete({ response, params }: HttpContextContract) {
+    const { id } = params
+
+    const brand = await Brand.query().where('id', id).first()
+
+    if (!brand) {
+      return response.status(400).json('There is no brand with this ID')
+    }
+
+    brand.deletedAt = DateTime.fromJSDate(new Date())
+
+    brand.save()
+
+    return response.status(204)
   }
 
   public async delete({ response, params }: HttpContextContract) {

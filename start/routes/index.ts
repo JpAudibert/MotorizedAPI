@@ -22,6 +22,7 @@ import Route from '@ioc:Adonis/Core/Route'
 import './brand'
 import './category'
 import './city'
+import './contract'
 import './responsibility'
 import './state'
 

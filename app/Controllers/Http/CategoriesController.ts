@@ -33,7 +33,7 @@ export default class CategoriesController {
 
   public async update({ request, response }: HttpContextContract) {
     const { id } = request.params()
-    const { categoryName, deletedAt } = request.original()
+    const { categoryName } = request.original()
 
     if (!categoryName) {
       return response.status(400).json('Empty category name')
@@ -46,13 +46,26 @@ export default class CategoriesController {
     }
 
     category.categoryName = categoryName
-    if (deletedAt) {
-      category.deletedAt = new DateTime()
-    }
 
     category.save()
 
     return category
+  }
+
+  public async softDelete({ response, params }: HttpContextContract) {
+    const { id } = params
+
+    const category = await Category.query().where('id', id).first()
+
+    if (!category) {
+      return response.status(400).json('There is no category with this ID')
+    }
+
+    category.deletedAt = DateTime.fromJSDate(new Date())
+
+    category.save()
+
+    return response.status(204)
   }
 
   public async delete({ response, params }: HttpContextContract) {

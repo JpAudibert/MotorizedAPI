@@ -13,7 +13,11 @@ export default class CitiesController {
   public async show({ response, params }: HttpContextContract) {
     const { stateId, id } = params
 
-    const city = await City.query().where('id', id).where('stateId', stateId).first()
+    const city = await City.query()
+      .preload('state')
+      .where('id', id)
+      .where('stateId', stateId)
+      .first()
 
     if (!city) {
       return response.status(400).json('There is no vity with this ID')

@@ -1,5 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Responsibility from 'App/Models/Responsibility'
+import { DateTime } from 'luxon'
 
 export default class ResponsibilitiesController {
   public async index() {
@@ -49,6 +50,22 @@ export default class ResponsibilitiesController {
     responsibility.save()
 
     return responsibility
+  }
+
+  public async softDelete({ response, params }: HttpContextContract) {
+    const { id } = params
+
+    const responsibility = await Responsibility.query().where('id', id).first()
+
+    if (!responsibility) {
+      return response.status(400).json('There is no responsibility with this ID')
+    }
+
+    responsibility.deletedAt = DateTime.fromJSDate(new Date())
+
+    responsibility.save()
+
+    return response.status(204)
   }
 
   public async delete({ response, params }: HttpContextContract) {
