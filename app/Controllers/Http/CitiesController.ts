@@ -1,6 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import City from 'App/Models/City'
-import State from 'App/Models/State'
 
 export default class CitiesController {
   public async index({ params, request }: HttpContextContract) {
