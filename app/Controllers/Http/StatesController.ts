@@ -3,13 +3,13 @@ import State from 'App/Models/State'
 
 export default class StatesController {
   public async index() {
-    return await State.all()
+    return (await State.all()).reverse()
   }
 
   public async show({ response, params }: HttpContextContract) {
     const { id } = params
 
-    const state = await State.query().where('id', id).first()
+    const state = await State.query().preload('cities').where('id', id).first()
 
     if (!state) {
       return response.status(400).json('There is no state with this ID')
@@ -41,7 +41,7 @@ export default class StatesController {
     const state = await State.query().where('id', id).first()
 
     if (!state) {
-      return response.status(400).json('There is no category with this ID')
+      return response.status(400).json('There is no state with this ID')
     }
 
     state.name = name

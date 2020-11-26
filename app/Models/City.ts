@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import City from './City'
+import { BaseModel, belongsTo, BelongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import State from './State'
 
-export default class State extends BaseModel {
+export default class City extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
@@ -10,10 +10,10 @@ export default class State extends BaseModel {
   public name: string
 
   @column()
-  public abreviation: string
+  public stateId: number
 
-  @hasMany(() => City)
-  public cities: HasMany<typeof City>
+  @belongsTo(() => State)
+  public state: BelongsTo<typeof State>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
