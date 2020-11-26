@@ -3,7 +3,7 @@ import Contract from 'App/Models/Contract'
 import { DateTime } from 'luxon'
 
 export default class ContractsController {
-  public async index({ response }) {
+  public async index() {
     return await Contract.all()
   }
 
