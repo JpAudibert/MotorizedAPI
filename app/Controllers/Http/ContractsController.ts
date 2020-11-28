@@ -26,7 +26,7 @@ export default class ContractsController {
   public async store({ request, response }: HttpContextContract) {
     const { contractCancelDate, penalty, paymentType, contractValue } = request.original()
 
-    if (!penalty && !paymentType && !contractValue) {
+    if (!penalty || !paymentType || !contractValue) {
       return response.status(400).json('Invalid inputs for contract')
     }
 
@@ -53,7 +53,7 @@ export default class ContractsController {
       contractValue,
     } = request.original()
 
-    if (!contractDate && !penalty && !paymentType && !contractValue) {
+    if (!contractDate || !penalty || !paymentType || !contractValue) {
       return response.status(400).json('Invalid inputs for contract')
     }
 

@@ -1,19 +1,22 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import VehicleModel from './VehicleModel'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import Brand from './Brand'
 
-export default class Brand extends BaseModel {
+export default class VehicleModel extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public name: string
-
-  @hasMany(() => VehicleModel)
-  public vehicleModels: HasMany<typeof VehicleModel>
+  public modelName: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
+
+  @column()
+  public brandId: number
+
+  @belongsTo(() => Brand)
+  public brand: BelongsTo<typeof Brand>
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime

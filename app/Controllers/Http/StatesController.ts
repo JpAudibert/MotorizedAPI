@@ -25,7 +25,7 @@ export default class StatesController {
   public async store({ request, response }: HttpContextContract) {
     const { name, abreviation } = request.original()
 
-    if (!name && !abreviation) {
+    if (!name || !abreviation) {
       return response.status(400).json('Empty state name and abreviation')
     }
 
@@ -38,7 +38,7 @@ export default class StatesController {
     const { id } = params
     const { name, abreviation } = request.original()
 
-    if (!name && !abreviation) {
+    if (!name || !abreviation) {
       return response.status(400).json('Empty state name and abreviation')
     }
 

@@ -29,7 +29,7 @@ export default class ClientsController {
   public async store({ request, response }: HttpContextContract) {
     const { name, email, cpf, phone, birthday, cnhRegister, cnhMirror, cityId } = request.original()
 
-    if (!name && !email && !cpf && !phone && !birthday && !cnhRegister && !cnhMirror && !cityId) {
+    if (!name || !email || !cpf || !phone || !birthday || !cnhRegister || !cnhMirror || !cityId) {
       return response.status(400).json('Invalid values for client')
     }
 
@@ -51,7 +51,7 @@ export default class ClientsController {
     const { id } = params
     const { name, email, cpf, phone, birthday, cnhRegister, cnhMirror, cityId } = request.original()
 
-    if (!name && !email && !cpf && !phone && !birthday && !cnhRegister && !cnhMirror && !cityId) {
+    if (!name || !email || !cpf || !phone || !birthday || !cnhRegister || !cnhMirror || !cityId) {
       return response.status(400).json('Invalid values for client')
     }
 
