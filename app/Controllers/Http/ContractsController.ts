@@ -3,8 +3,12 @@ import Contract from 'App/Models/Contract'
 import { DateTime } from 'luxon'
 
 export default class ContractsController {
-  public async index() {
-    return await Contract.all()
+  public async index({ response }: HttpContextContract) {
+    try {
+      return await Contract.all()
+    } catch (err) {
+      return response.status(400).json({ message: 'There is no contracts', error: err.message })
+    }
   }
 
   public async show({ response, params }: HttpContextContract) {
@@ -26,7 +30,7 @@ export default class ContractsController {
       return response.status(400).json('Invalid inputs for contract')
     }
 
-    const contractDate = new DateTime()
+    const contractDate = DateTime.fromJSDate(new Date())
 
     const contract = await Contract.create({
       contractDate,

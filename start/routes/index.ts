@@ -18,14 +18,10 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
 import './brand'
 import './category'
 import './city'
+import './client'
 import './contract'
 import './responsibility'
 import './state'
-
-Route.get('/', async () => {
-  return { hello: `world` }
-})

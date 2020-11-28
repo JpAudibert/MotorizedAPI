@@ -2,12 +2,16 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import City from 'App/Models/City'
 
 export default class CitiesController {
-  public async index({ params, request }: HttpContextContract) {
-    const { stateId } = params
-    const { page } = request.input('page', 1)
-    const limit = 10
+  public async index({ params, request, response }: HttpContextContract) {
+    try {
+      const { stateId } = params
+      const { page } = request.input('page', 1)
+      const limit = 10
 
-    return await City.query().where('state_id', stateId).paginate(page, limit)
+      return await City.query().where('state_id', stateId).paginate(page, limit)
+    } catch (err) {
+      return response.status(400).json({ message: 'There is no cities', error: err.message })
+    }
   }
 
   public async show({ response, params }: HttpContextContract) {
@@ -20,7 +24,7 @@ export default class CitiesController {
       .first()
 
     if (!city) {
-      return response.status(400).json('There is no vity with this ID')
+      return response.status(400).json('There is no city with this ID')
     }
 
     return city

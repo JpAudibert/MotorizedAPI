@@ -3,8 +3,12 @@ import Brand from 'App/Models/Brand'
 import { DateTime } from 'luxon'
 
 export default class BrandsController {
-  public async index() {
-    return await Brand.all()
+  public async index({ response }: HttpContextContract) {
+    try {
+      return await Brand.all()
+    } catch (err) {
+      return response.status(400).json({ message: 'There is no brands', error: err.message })
+    }
   }
 
   public async show({ response, params }: HttpContextContract) {

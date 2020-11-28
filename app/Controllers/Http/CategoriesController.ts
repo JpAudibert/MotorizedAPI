@@ -3,8 +3,12 @@ import Category from 'App/Models/Category'
 import { DateTime } from 'luxon'
 
 export default class CategoriesController {
-  public async index() {
-    return await Category.all()
+  public async index({ response }: HttpContextContract) {
+    try {
+      return await Category.all()
+    } catch (err) {
+      return response.status(400).json({ message: 'There is no categories', error: err.message })
+    }
   }
 
   public async show({ response, params }: HttpContextContract) {

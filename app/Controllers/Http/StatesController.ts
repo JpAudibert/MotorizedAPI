@@ -2,14 +2,18 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import State from 'App/Models/State'
 
 export default class StatesController {
-  public async index() {
-    return (await State.all()).reverse()
+  public async index({ response }: HttpContextContract) {
+    try {
+      return (await State.all()).reverse()
+    } catch (err) {
+      return response.status(400).json({ message: 'There is no states', error: err.message })
+    }
   }
 
   public async show({ response, params }: HttpContextContract) {
     const { id } = params
 
-    const state = await State.query().preload('cities').where('id', id).first()
+    const state = await State.query().where('id', id).first()
 
     if (!state) {
       return response.status(400).json('There is no state with this ID')

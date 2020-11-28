@@ -3,8 +3,14 @@ import Responsibility from 'App/Models/Responsibility'
 import { DateTime } from 'luxon'
 
 export default class ResponsibilitiesController {
-  public async index() {
-    return await Responsibility.all()
+  public async index({ response }: HttpContextContract) {
+    try {
+      return await Responsibility.all()
+    } catch (err) {
+      return response
+        .status(400)
+        .json({ message: 'There is no responsibilities', error: err.message })
+    }
   }
 
   public async show({ response, params }: HttpContextContract) {
