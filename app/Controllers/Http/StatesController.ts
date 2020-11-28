@@ -1,5 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import State from 'App/Models/State'
+import StateSeeder from 'Database/seeders/StateSeeder'
 
 export default class StatesController {
   public async index({ response }: HttpContextContract) {

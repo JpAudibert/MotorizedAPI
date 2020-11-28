@@ -11,7 +11,7 @@ export default class VehicleModelsController {
 
       return await VehicleModel.query()
         .preload('brand')
-        // .where('brand_id', brandId)
+        .where('brand_id', brandId)
         .paginate(page, limit)
     } catch (err) {
       return response
