@@ -17,7 +17,7 @@ export default class ContractsController {
     const contract = await Contract.query().where('id', id).first()
 
     if (!contract) {
-      return response.status(400).json('There is no state with this ID')
+      return response.status(400).json('There is no contact with this ID')
     }
 
     return contract
@@ -25,6 +25,8 @@ export default class ContractsController {
 
   public async store({ request, response }: HttpContextContract) {
     const { contractCancelDate, penalty, paymentType, contractValue } = request.original()
+
+    Number(penalty)
 
     if (!penalty || !paymentType || !contractValue) {
       return response.status(400).json('Invalid inputs for contract')
