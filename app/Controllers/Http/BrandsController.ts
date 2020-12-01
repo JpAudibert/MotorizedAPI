@@ -49,6 +49,8 @@ export default class BrandsController {
       return response.status(400).json('There is no brand with this ID')
     }
 
+    brand.name = name
+
     brand.save()
 
     return brand
